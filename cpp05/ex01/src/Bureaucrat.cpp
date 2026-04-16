@@ -76,9 +76,9 @@ void Bureaucrat::decrementGrade()
         this->bGrade += 1;
 } 
 
-void Bureaucrat::signForm()
+void Bureaucrat::signForm(std::string name)
 {
-    Form::beSigned();
+    Form.beSigned();
 }
 
 std::ostream& operator<<(std::ostream& os, const Bureaucrat& bureaucrat)

@@ -42,6 +42,9 @@ class Form
 
         void beSigned(std::string name);
         std::string getName() const;
+        bool Form::getfSigned() const;
+        int Form::getsGrade() const;
+        int Form::geteGrade() const;
 };
 
 std::ostream& operator<<(std::ostream& os, const Form& form);

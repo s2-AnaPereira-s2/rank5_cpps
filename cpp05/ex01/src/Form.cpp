@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "Form.hpp"
+#include "Bureaucrat.hpp"
 
 
 Form::Form(std::string name, bool fSigned, int sGrade, int eGrade) : name(name), fSigned(fSigned), sGrade(sGrade), eGrade(eGrade)  
@@ -48,8 +49,31 @@ std::string Form::getName() const
     return this->name;
 }
 
+bool Form::getfSigned() const
+{
+    return this->fSigned;
+}
+
+int Form::getsGrade() const
+{
+    return this->sGrade;
+}
+
+int Form::geteGrade() const
+{
+    return this->eGrade;
+}
+
+void Form::beSigned(std::string name)
+{
+    
+}
+
 std::ostream& operator<<(std::ostream& os, const Form& form)
 {
-    os << form.getName();  
+    os << form.getName() 
+        <<"\nForm is signed: " << form.getfSigned() 
+        << "\nGrade required to sign: " << form.getsGrade() 
+        << "\nGrade required to execute: " << form.geteGrade();  
     return os;
 }
