@@ -6,7 +6,7 @@
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 16:07:47 by ana-pdos          #+#    #+#             */
-/*   Updated: 2026/04/16 17:58:19 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2026/04/16 18:48:06 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ class Bureaucrat
 
         void incrementGrade();
         void decrementGrade();
+        void signForm();
         std::string getName() const;
         int getGrade() const;
 };

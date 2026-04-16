@@ -6,7 +6,7 @@
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 15:15:20 by ana-pdos          #+#    #+#             */
-/*   Updated: 2026/04/16 18:05:26 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2026/04/16 18:46:26 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,11 @@ void Bureaucrat::decrementGrade()
     else
         this->bGrade += 1;
 } 
+
+void Bureaucrat::signForm()
+{
+    Form::beSigned();
+}
 
 std::ostream& operator<<(std::ostream& os, const Bureaucrat& bureaucrat)
 {

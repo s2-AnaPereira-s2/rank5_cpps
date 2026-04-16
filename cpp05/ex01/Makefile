@@ -1,4 +1,4 @@
-NAME = ex00
+NAME = ex01
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
@@ -9,6 +9,7 @@ OBJ_DIR = obj
 
 SRCS = main.cpp \
 	$(SRC_DIR)/Bureaucrat.cpp \
+	$(SRC_DIR)/Form.cpp \
 
 OBJS = $(SRCS:%.cpp=$(OBJ_DIR)/%.o)
 
