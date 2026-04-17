@@ -6,7 +6,7 @@
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 16:07:47 by ana-pdos          #+#    #+#             */
-/*   Updated: 2026/04/17 11:09:40 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2026/04/17 16:29:56 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 
 #include <iostream>
 #include <string>
-#include "Form.hpp"
+#include <exception>
+
+class AForm;
 
 class Bureaucrat
 {
@@ -36,16 +38,17 @@ class Bureaucrat
                 const char* what() const throw();
         };
         
-        Bureaucrat(std::string name, int bGrade);
+        Bureaucrat(std::string const &name, int bGrade);
         Bureaucrat(const Bureaucrat& other);
         Bureaucrat& operator=(const Bureaucrat& other);
         ~Bureaucrat();
 
         void incrementGrade();
         void decrementGrade();
-        void signForm(Form& form);
+        void signForm(AForm& form);
         std::string getName() const;
         int getGrade() const;
+        void executeForm(AForm& form) const;
 };
 
 std::ostream& operator<<(std::ostream& os, const Bureaucrat& bureaucrat);

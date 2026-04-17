@@ -6,13 +6,14 @@
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 15:15:20 by ana-pdos          #+#    #+#             */
-/*   Updated: 2026/04/17 12:14:01 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2026/04/17 17:55:17 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
+#include "AForm.hpp"
 
-Bureaucrat::Bureaucrat(std::string name, int bGrade) : name(name), bGrade(bGrade)  
+Bureaucrat::Bureaucrat(std::string const &name, int bGrade) : name(name), bGrade(bGrade)  
 {
     if (this->bGrade < 1)
         throw Bureaucrat::GradeTooHighException();
@@ -59,7 +60,7 @@ void Bureaucrat::incrementGrade()
 
     grade = getGrade();
     if (grade - 1 < 1 )
-        throw Bureaucrat::GradeTooHighException();
+        throw GradeTooHighException();
     else
         this->bGrade -= 1;
 }
@@ -70,12 +71,12 @@ void Bureaucrat::decrementGrade()
 
     grade = getGrade();
     if (grade + 1 > 150 )
-        throw Bureaucrat::GradeTooLowException();
+        throw GradeTooLowException();
     else
         this->bGrade += 1;
 } 
 
-void Bureaucrat::signForm(Form& form)
+void Bureaucrat::signForm(AForm& form)
 {
     std::string name;
     int grade;
@@ -87,7 +88,7 @@ void Bureaucrat::signForm(Form& form)
         form.beSigned(*this);
         std::cout << name << " signed " << form.getName() << std::endl;
     }
-    catch(const Form::GradeTooLowException& e)
+    catch(const AForm::GradeTooLowException& e)
     {
         std::cout << name 
             << " could not sign " 
@@ -95,6 +96,25 @@ void Bureaucrat::signForm(Form& form)
             << " because " 
             << e.what() 
             << std::endl;
+    }
+}
+
+void Bureaucrat::executeForm(AForm& form) const
+{
+    std::string name;
+    int grade;
+
+    name = getName();
+    grade = getGrade();
+    
+    try 
+    {
+        form.execute(*this);
+        std::cout << name << " executed " << form.getName() << std::endl;
+    }
+    catch (const std::exception& e) 
+    {
+        std::cout << getName() << " couldn't execute " << form.getName() << " because " << e.what() << std::endl;
     }
 }
 

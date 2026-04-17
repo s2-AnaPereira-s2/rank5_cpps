@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Form.cpp                                           :+:      :+:    :+:   */
+/*   AForm.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 15:15:20 by ana-pdos          #+#    #+#             */
-/*   Updated: 2026/04/17 16:37:17 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2026/04/17 17:29:25 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Form.hpp"
+#include "AForm.hpp"
 #include "Bureaucrat.hpp"
 
-Form::Form(std::string name, bool fSigned, int sGrade, int eGrade) : name(name), fSigned(fSigned), sGrade(sGrade), eGrade(eGrade)  
+AForm::AForm(std::string const &name, bool fSigned, int sGrade, int eGrade) : name(name), fSigned(fSigned), sGrade(sGrade), eGrade(eGrade)  
 {
     if (this->sGrade < 1 || this->eGrade < 1)
         throw Bureaucrat::GradeTooHighException();
@@ -21,9 +21,9 @@ Form::Form(std::string name, bool fSigned, int sGrade, int eGrade) : name(name),
         throw Bureaucrat::GradeTooLowException();
 }
 
-Form::Form(const Form& other) : name(other.name), fSigned(other.fSigned), sGrade(other.sGrade), eGrade(other.eGrade) {}
+AForm::AForm(const AForm& other) : name(other.name), fSigned(other.fSigned), sGrade(other.sGrade), eGrade(other.eGrade) {}
 
-Form& Form::operator=(const Form& other)
+AForm& AForm::operator=(const AForm& other)
 {
     if (this != &other)
     {
@@ -34,51 +34,59 @@ Form& Form::operator=(const Form& other)
     return *this;
 }
 
-Form::~Form(){}
+AForm::~AForm(){}
 
-const char* Form::GradeTooHighException::what() const throw() 
+const char* AForm::GradeTooHighException::what() const throw() 
 {
     return ("Grade is at highest possible.");
 }
 
-const char* Form::GradeTooLowException::what() const throw() 
+const char* AForm::GradeTooLowException::what() const throw() 
 {
     return ("Grade is lower than required.");
 }
 
-std::string Form::getName() const
+const char* AForm::FormNotSignedException::what() const throw()
+{
+    return ("Form must be signed.");
+}
+
+std::string AForm::getName() const
 {
     return this->name;
 }
 
-bool Form::getfSigned() const
+bool AForm::getfSigned() const
 {
     return this->fSigned;
 }
 
-int Form::getsGrade() const
+int AForm::getsGrade() const
 {
     return this->sGrade;
 }
 
-int Form::geteGrade() const
+int AForm::geteGrade() const
 {
     return this->eGrade;
 }
 
-void Form::beSigned(Bureaucrat& bureaucrat)
+void AForm::beSigned(Bureaucrat& bureaucrat)
 {
     if (bureaucrat.getGrade() > getsGrade())
-        throw Form::GradeTooLowException();
+        throw GradeTooLowException();
     else
         this->fSigned = true;
 }
 
-std::ostream& operator<<(std::ostream& os, const Form& form)
+void AForm::execute(const Bureaucrat& executor) const {}
+
+std::ostream& operator<<(std::ostream& os, const AForm& form)
 {
-    os << form.getName() 
+    os << "Form: " << form.getName() 
         <<"\nForm is signed: " << form.getfSigned() 
         << "\nGrade required to sign: " << form.getsGrade() 
-        << "\nGrade required to execute: " << form.geteGrade();  
+        << "\nGrade required to execute: " << form.geteGrade()
+        << std::endl;
     return os;
 }
