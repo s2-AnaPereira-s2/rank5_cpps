@@ -78,10 +78,8 @@ void Bureaucrat::decrementGrade()
 void Bureaucrat::signForm(Form& form)
 {
     std::string name;
-    int grade;
 
     name = getName();
-    grade = getGrade();
     try
     {
         form.beSigned(*this);

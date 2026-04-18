@@ -19,7 +19,7 @@ int main(void)
 
     try
     {
-        std::cout << "--- Test 1: Creating valid Bureaucrat and Form ---" << std::endl;
+        std::cout << "\n--- Test 1: Creating valid Bureaucrat and Form ---" << std::endl;
         Bureaucrat b1("Alice", 50);
         Form f1("TaxForm", false, 40, 30);
         
@@ -33,7 +33,7 @@ int main(void)
 
     try
     {
-        std::cout << "--- Test 2: Bureaucrat with invalid high grade ---" << std::endl;
+        std::cout << "\n--- Test 2: Bureaucrat with invalid high grade ---" << std::endl;
         Bureaucrat b2("Bob", 0);
     }
     catch (std::exception& e)
@@ -43,7 +43,7 @@ int main(void)
 
     try
     {
-        std::cout << "--- Test 3: Bureaucrat with invalid low grade ---" << std::endl;
+        std::cout << "\n--- Test 3: Bureaucrat with invalid low grade ---" << std::endl;
         Bureaucrat b3("Charlie", 151);
     }
     catch (std::exception& e)
@@ -53,7 +53,7 @@ int main(void)
 
     try
     {
-        std::cout << "--- Test 4: Signing a Form ---" << std::endl;
+        std::cout << "\n--- Test 4: Signing a Form ---" << std::endl;
         Bureaucrat b4("Diana", 35);
         Form f2("PermitForm", false, 40, 30);
         
@@ -68,7 +68,7 @@ int main(void)
 
     try
     {
-        std::cout << "--- Test 5: Grade too low to sign ---" << std::endl;
+        std::cout << "\n--- Test 5: Grade too low to sign ---" << std::endl;
         Bureaucrat b5("Eve", 50);
         Form f3("ExecutiveForm", false, 30, 20);
         
@@ -81,7 +81,7 @@ int main(void)
 
     try
     {
-        std::cout << "--- Test 6: Incrementing and Decrementing Grade ---" << std::endl;
+        std::cout << "\n--- Test 6: Incrementing and Decrementing Grade ---" << std::endl;
         Bureaucrat b6("Frank", 75);
         std::cout << "Initial: " << b6.getGrade() << std::endl;
         b6.incrementGrade();

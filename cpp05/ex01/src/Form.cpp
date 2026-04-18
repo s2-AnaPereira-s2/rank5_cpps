@@ -69,16 +69,23 @@ int Form::geteGrade() const
 void Form::beSigned(Bureaucrat& bureaucrat)
 {
     if (bureaucrat.getGrade() > getsGrade())
-        throw Form::GradeTooLowException();
+        throw GradeTooLowException();
     else
         this->fSigned = true;
 }
 
 std::ostream& operator<<(std::ostream& os, const Form& form)
 {
-    os << form.getName() 
-        <<"\nForm is signed: " << form.getfSigned() 
+    std::string fstatus;
+
+    if (form.getfSigned() == 0)
+        fstatus = "No";
+    else if (form.getfSigned() == 1)
+        fstatus = "Yes";
+    os << "\nForm: " << form.getName() 
+        << "\nForm is signed: " << fstatus 
         << "\nGrade required to sign: " << form.getsGrade() 
-        << "\nGrade required to execute: " << form.geteGrade();  
+        << "\nGrade required to execute: " << form.geteGrade()
+        << std::endl; 
     return os;
 }

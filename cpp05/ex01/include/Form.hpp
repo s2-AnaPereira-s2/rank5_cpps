@@ -37,6 +37,11 @@ class Form
             public:
                 const char* what() const throw();
         };
+        class FormAlreadySignedException : public std::exception
+        {
+            public:
+                const char* what() const throw();
+        };
         Form(std::string name, bool fSigned,int sGrade, int eGrade);
         Form(const Form& other);
         Form& operator=(const Form& other);
