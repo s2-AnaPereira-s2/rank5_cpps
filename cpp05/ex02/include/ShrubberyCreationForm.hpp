@@ -18,8 +18,6 @@
 #include <string>
 #include <iostream>
 
-class AForm;
-
 class ShrubberyCreationForm : public AForm
 {
     private:

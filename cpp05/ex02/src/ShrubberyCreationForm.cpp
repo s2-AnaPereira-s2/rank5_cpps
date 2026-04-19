@@ -10,11 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "Bureaucrat.hpp"
 #include "ShrubberyCreationForm.hpp"
 
 ShrubberyCreationForm::ShrubberyCreationForm(std::string target) : AForm("ShrubberyCreationForm", false, 145, 137), target(target)  {}
 
-ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm& other) : AForm(other), target(target)  {}
+ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm& other) : AForm(other), target(other.target)  {}
 
 ShrubberyCreationForm& ShrubberyCreationForm::operator=(const ShrubberyCreationForm& other)
 {
@@ -30,8 +31,13 @@ ShrubberyCreationForm::~ShrubberyCreationForm(){};
 
 void ShrubberyCreationForm::execute(const Bureaucrat& executor) const
 {
+    if (!this->getfSigned())
+        throw AForm::FormNotSignedException();
+
+    if (executor.getGrade() > this->geteGrade())
+        throw AForm::GradeTooLowException();
+
     std::ofstream file((target + "_shrubbery").c_str());
-    
     if (!file.is_open())
     {
         std::cerr << "Could not create file" << target << std::endl;

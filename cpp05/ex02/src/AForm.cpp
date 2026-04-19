@@ -51,6 +51,11 @@ const char* AForm::FormNotSignedException::what() const throw()
     return ("Form must be signed.");
 }
 
+const char* AForm::FormAlreadySignedException::what() const throw() 
+{
+    return ("Form is already signed.");
+}
+
 std::string AForm::getName() const
 {
     return this->name;
@@ -79,14 +84,18 @@ void AForm::beSigned(Bureaucrat& bureaucrat)
         this->fSigned = true;
 }
 
-void AForm::execute(const Bureaucrat& executor) const {}
-
 std::ostream& operator<<(std::ostream& os, const AForm& form)
 {
-    os << "Form: " << form.getName() 
-        <<"\nForm is signed: " << form.getfSigned() 
+    std::string fstatus;
+
+    if (form.getfSigned() == 0)
+        fstatus = "No";
+    else if (form.getfSigned() == 1)
+        fstatus = "Yes";
+    os << "\nForm: " << form.getName() 
+        << "\nForm is signed: " << fstatus 
         << "\nGrade required to sign: " << form.getsGrade() 
         << "\nGrade required to execute: " << form.geteGrade()
-        << std::endl;
+        << std::endl; 
     return os;
 }

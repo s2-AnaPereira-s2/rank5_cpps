@@ -79,10 +79,8 @@ void Bureaucrat::decrementGrade()
 void Bureaucrat::signForm(AForm& form)
 {
     std::string name;
-    int grade;
 
     name = getName();
-    grade = getGrade();
     try
     {
         form.beSigned(*this);
@@ -102,11 +100,8 @@ void Bureaucrat::signForm(AForm& form)
 void Bureaucrat::executeForm(AForm& form) const
 {
     std::string name;
-    int grade;
 
     name = getName();
-    grade = getGrade();
-    
     try 
     {
         form.execute(*this);
