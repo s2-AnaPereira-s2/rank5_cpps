@@ -6,7 +6,7 @@
 /*   By: ana <ana@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 15:58:56 by ana-pdos          #+#    #+#             */
-/*   Updated: 2026/04/19 18:13:40 by ana              ###   ########.fr       */
+/*   Updated: 2026/04/19 19:54:17 by ana              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 static void testShrubbery()
 {
-    std::cout << "=== ShrubberyCreationForm test ===\n";
+    std::cout << "\n=== ShrubberyCreationForm test ===\n";
 
     Bureaucrat boss("Boss", 1);
     Bureaucrat worker("Worker", 150);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ShrubberyCreationForm.cpp                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ana <ana@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 13:57:55 by ana-pdos          #+#    #+#             */
-/*   Updated: 2026/04/17 17:07:20 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2026/04/19 20:11:47 by ana              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@ void ShrubberyCreationForm::execute(const Bureaucrat& executor) const
 
     if (executor.getGrade() > this->geteGrade())
         throw AForm::GradeTooLowException();
+    
+    if (executor.getGrade() < 1)
+		throw AForm::GradeTooHighException();
 
     std::ofstream file((target + "_shrubbery").c_str());
     if (!file.is_open())
