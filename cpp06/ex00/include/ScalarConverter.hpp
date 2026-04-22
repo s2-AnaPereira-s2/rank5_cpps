@@ -4,6 +4,9 @@
 #include <fstream>
 #include <string>
 #include <iostream>
+#include <iomanip>
+#include <cctype>
+#include "TypeChecks.hpp"
 
 
 class ScalarConverter
@@ -17,10 +20,6 @@ class ScalarConverter
         static void convert(const std::string& literal);
 
 };
-
-//...helper functions...
-
-
 
 
 #endif

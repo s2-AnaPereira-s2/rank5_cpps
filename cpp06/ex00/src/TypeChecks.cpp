@@ -47,55 +47,64 @@ bool isIntLiteral(const std::string& arg)
 bool isFloatLiteral(const std::string& arg)
 {
     size_t i = 0;
-    bool dot = false;
+    int dot = 0;
+    int digits = 0;
 
-    if (arg == "nanf" || arg == "+inff" || arg == "-inff")
-        return true;
     if (arg.length() < 2 || arg[arg.length() - 1] != 'f')
         return false;
 
     if (arg[0] == '+' || arg[0] == '-')
         i = 1;
-
-    for (; i < arg.length() - 1; ++i)
+    while (i < arg.length() - 1)
     {
         if (arg[i] == '.')
         {
-            if (dot)
-                return false;
-            dot = true;
+            dot++;
+            i++;
         }
         else if (!std::isdigit(static_cast<unsigned char>(arg[i])))
             return false;
+        else
+        {
+            i++;
+            digits++;
+        }
     }
-    return dot;
+    if (dot == 1 && digits != 0)
+        return true;
+    return false;
 }
 
 bool isDoubleLiteral(const std::string& arg)
 {
     size_t i = 0;
-    bool dotSeen = false;
+    int dot = 0;
+    int digits = 0;
 
-    if (arg == "nan" || arg == "+inf" || arg == "-inf")
-        return true;
     if (arg.empty())
         return false;
 
     if (arg[0] == '+' || arg[0] == '-')
         i = 1;
-
-    for (; i < arg.length(); ++i)
+    
+    while (i < arg.length())
     {
         if (arg[i] == '.')
         {
-            if (dotSeen)
-                return false;
-            dotSeen = true;
+            dot++;
+            i++;
         }
         else if (!std::isdigit(static_cast<unsigned char>(arg[i])))
             return false;
+        else
+        {
+            i++;
+            digits++;
+        }
     }
-    return dotSeen;
+    if (dot == 1 && digits != 0)
+        return true;
+    return false;
 }
 
 
