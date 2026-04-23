@@ -6,7 +6,7 @@
 /*   By: ana <ana@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 00:00:00 by ana               #+#    #+#             */
-/*   Updated: 2026/04/24 00:30:18 by ana              ###   ########.fr       */
+/*   Updated: 2026/04/24 01:02:24 by ana              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ class Base
         virtual ~Base();
 };
 
-Base* generate(void);
+Base* generate();
 void identify(Base* p);
-void identify(Base& r);
+void identify(Base& p);
 
 #endif
