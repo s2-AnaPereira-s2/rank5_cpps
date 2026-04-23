@@ -7,11 +7,7 @@
 #include <ctime>
 #include "Base.hpp"
 
-class B : public Base
-{
-    public:
-        ~B();
-};
+class B : public Base {};
 
 
 #endif
