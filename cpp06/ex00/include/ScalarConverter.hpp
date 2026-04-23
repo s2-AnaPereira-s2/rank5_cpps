@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ScalarConverter.hpp                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/23 18:17:51 by ana-pdos          #+#    #+#             */
+/*   Updated: 2026/04/23 18:27:45 by ana-pdos         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SCALARCONVERTER_HPP
 #define SCALARCONVERTER_HPP
 
@@ -6,6 +18,9 @@
 #include <iostream>
 #include <iomanip>
 #include <cctype>
+#include <climits>
+#include <cmath>
+#include <cstdlib>
 #include "TypeChecks.hpp"
 
 
@@ -17,7 +32,7 @@ class ScalarConverter
         ScalarConverter& operator=(const ScalarConverter &other);
         ~ScalarConverter();
     public:
-        static void convert(const std::string& literal);
+        static int convert(const std::string& literal);
 
 };
 

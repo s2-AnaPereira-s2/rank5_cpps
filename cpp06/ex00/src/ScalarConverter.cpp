@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ScalarConverter.cpp                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/23 18:18:27 by ana-pdos          #+#    #+#             */
+/*   Updated: 2026/04/23 18:37:44 by ana-pdos         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ScalarConverter.hpp"
 
 
@@ -56,32 +68,83 @@ static void intLit_convert(const std::string& literal)
     char* end = NULL;
     double value = std::strtod(literal.c_str(), &end);
 
-    std::cout << "char: " << std::endl;
-    std::cout << "int: " << std::endl;
-    std::cout << "float: " <<  << std::endl;
-    std::cout << "double: " <<  << std::endl;
+    if (value > INT_MAX || value < INT_MIN)
+    {
+        std::cout << "char: impossible" << std::endl;
+        std::cout << "int: impossible" << std::endl;
+    }
+    else
+    {
+        int intValue = static_cast<int>(value);
+        
+        if (intValue < 0 || intValue > 127)
+            std::cout << "char: impossible" << std::endl;
+        else if (!std::isprint(static_cast<unsigned char>(intValue)))
+            std::cout << "char: Non displayable" << std::endl;
+        else
+            std::cout << "char: " << static_cast<char>(intValue) << std::endl;
+        std::cout << "int: " << intValue << std::endl;
+    }
+    std::cout << "float: " << std::fixed << std::setprecision(1) << static_cast<float>(value) << "f" << std::endl;
+    std::cout << "double: " << std::fixed << std::setprecision(1) << value << std::endl;
     return;
 }
 
 static void floatLit_convert(const std::string& literal)
 {
-    std::cout << "char: " << std::endl;
-    std::cout << "int: " << std::endl;
-    std::cout << "float: " <<  << std::endl;
-    std::cout << "double: " <<  << std::endl;
+    char* end = NULL;
+    double value = std::strtod(literal.c_str(), &end);
+    
+    if (value > INT_MAX || value < INT_MIN)
+    {
+        std::cout << "char: impossible" << std::endl;
+        std::cout << "int: impossible" << std::endl;
+    }
+    else
+    {
+        int intValue = static_cast<int>(value);
+        
+        if (intValue < 0 || intValue > 127)
+            std::cout << "char: impossible" << std::endl;
+        else if (!std::isprint(static_cast<unsigned char>(intValue)))
+            std::cout << "char: Non displayable" << std::endl;
+        else
+            std::cout << "char: " << static_cast<char>(intValue) << std::endl;
+        std::cout << "int: " << intValue << std::endl;
+    }
+    std::cout << "float: " << std::fixed << std::setprecision(1) << static_cast<float>(value) << "f" << std::endl;
+    std::cout << "double: " << std::fixed << std::setprecision(1) << value << std::endl;
     return;
 }
 
 static void doubleLit_convert(const std::string& literal)
 {
-    std::cout << "char: " << std::endl;
-    std::cout << "int: " << std::endl;
-    std::cout << "float: " <<  << std::endl;
-    std::cout << "double: " <<  << std::endl;
+    char* end = NULL;
+    double value = std::strtod(literal.c_str(), &end);
+
+    if (value > INT_MAX || value < INT_MIN)
+    {
+        std::cout << "char: impossible" << std::endl;
+        std::cout << "int: impossible" << std::endl;
+    }
+    else
+    {
+        int intValue = static_cast<int>(value);
+        
+        if (intValue < 0 || intValue > 127)
+            std::cout << "char: impossible" << std::endl;
+        else if (!std::isprint(static_cast<unsigned char>(intValue)))
+            std::cout << "char: Non displayable" << std::endl;
+        else
+            std::cout << "char: " << static_cast<char>(intValue) << std::endl;
+        std::cout << "int: " << intValue << std::endl;
+    }
+    std::cout << "float: " << std::fixed << std::setprecision(1) << static_cast<float>(value) << "f" << std::endl;
+    std::cout << "double: " << std::fixed << std::setprecision(1) << value << std::endl;
     return;
 }
 
-void ScalarConverter::convert(const std::string& literal)
+int ScalarConverter::convert(const std::string& literal)
 {
     const bool charLit = isCharLiteral(literal);
     const bool intLit = isIntLiteral(literal);
@@ -90,37 +153,20 @@ void ScalarConverter::convert(const std::string& literal)
     const std::string pseudoLit = isPseudoLiteral(literal);
 
     if (pseudoLit != "none")
-    {
-        pseudoLit_convert(pseudoLit, literal);
-        return;
-    }
+        return (pseudoLit_convert(pseudoLit, literal), 0);
     if (charLit)
-    {
-        charLit_convert(literal);
-        return;
-    }
+        return (charLit_convert(literal), 0);
     if (intLit)
-    {
-        intLit_convert(literal);
-        return;
-    }
+        return (intLit_convert(literal), 0);
     if (floatLit)
-    {
-        floatLit_convert(literal);
-        return;
-    }
+        return (floatLit_convert(literal), 0);
     if (doubleLit)
-    {
-        doubleLit_convert(literal);
-        return;
-    }
+        return (doubleLit_convert(literal), 0);
+        
+    std::cout << "char: impossible" << std::endl;
+	std::cout << "int: impossible" << std::endl;
+	std::cout << "float: impossible" << std::endl;
+	std::cout << "double: impossible" << std::endl;
+    return 1;
 }
-
-/*
-    Acceptable inputs:
-        char literal: in this subject is basically one printable non-digit character (example: a).
-        int: optional sign + digits.
-        float: decimal with trailing f (example: 42.0f, -4.2f) + pseudo literals nanf, +inff, -inff.
-        double: decimal without trailing f (example: 42.0, -4.2) + pseudo literals nan, +inf, -inf.
-*/
 
