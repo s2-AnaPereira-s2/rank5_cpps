@@ -8,12 +8,7 @@ SRC_DIR = src
 OBJ_DIR = obj
 
 SRCS = main.cpp \
-	$(SRC_DIR)/Bureaucrat.cpp \
-	$(SRC_DIR)/AForm.cpp \
-	$(SRC_DIR)/ShrubberyCreationForm.cpp \
-	$(SRC_DIR)/RobotomyRequestForm.cpp \
-	$(SRC_DIR)/PresidentialPardonForm.cpp \
-	$(SRC_DIR)/Intern.cpp 
+	$(SRC_DIR)/Identify.cpp 
 
 OBJS = $(SRCS:%.cpp=$(OBJ_DIR)/%.o)
 
