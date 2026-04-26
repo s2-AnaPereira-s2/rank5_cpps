@@ -1,38 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   whatever.hpp                                       :+:      :+:    :+:   */
+/*   iter.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ana <ana@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 18:17:51 by ana-pdos          #+#    #+#             */
-/*   Updated: 2026/04/27 00:38:15 by ana              ###   ########.fr       */
+/*   Updated: 2026/04/27 00:55:15 by ana              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WHATEVER_HPP
-#define WHATEVER_HPP
+#ifndef ITER_HPP
+#define ITER_HPP
 
-#include <stdint.h>
 #include <iostream>
-#include <string>
+#include <cstddef>
 
-template <typename T>
-void swap(T &a, T &b) {
-    T temp = a;
-    a = b;
-    b = temp;
+template <typename T, typename Function>
+void iter(T* array, const size_t length, Function func) 
+{
+    for (size_t i = 0; i < length; i++) 
+    {
+        func(array[i]);
+    }
 }
-
-template <typename T>
-T min(const T& a, const T& b) {
-    return (a < b ? a : b);
-}
-
-template <typename T>
-T max(const T& a, const T& b) {
-    return (a > b ? a : b);
-}
-
 
 #endif
