@@ -4,11 +4,9 @@ CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -MMD -MP
 INCLUDES = -I include
 
-SRC_DIR = src
 OBJ_DIR = obj
 
 SRCS = main.cpp \
-	$(SRC_DIR)/Serializer.cpp 
 
 OBJS = $(SRCS:%.cpp=$(OBJ_DIR)/%.o)
 DEPS = $(OBJS:.o=.d)
