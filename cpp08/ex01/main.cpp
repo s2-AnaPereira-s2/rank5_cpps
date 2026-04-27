@@ -6,7 +6,7 @@
 /*   By: ana <ana@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 16:20:44 by ana-pdos          #+#    #+#             */
-/*   Updated: 2026/04/27 22:46:31 by ana              ###   ########.fr       */
+/*   Updated: 2026/04/27 23:03:43 by ana              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,26 @@ int main()
             sp3.addNumber(i);
         std::cout << "Shortest span (10k): " << sp3.shortestSpan() << std::endl;
         std::cout << "Longest span (10k): " << sp3.longestSpan() << std::endl;
+
+        std::cout << "\n==== Test 5: addRange with vector ====" << std::endl;
+        std::vector<int> vec;
+        vec.push_back(1);
+        vec.push_back(2);
+        vec.push_back(3);
+        vec.push_back(4);
+        vec.push_back(5);
+
+        Span sp4 = Span(5);
+        sp4.addRange(vec.begin(), vec.end());
+        std::cout << "Shortest span (from vector): " << sp4.shortestSpan() << std::endl;
+        std::cout << "Longest span (from vector): " << sp4.longestSpan() << std::endl;
+
+        std::cout << "\n==== Test 6: addRange with array ====" << std::endl;
+        int arr[] = {10, 20, 30, 40, 50};
+        Span sp5 = Span(5);
+        sp5.addRange(arr, arr + 5);
+        std::cout << "Shortest span (from array): " << sp5.shortestSpan() << std::endl;
+        std::cout << "Longest span (from array): " << sp5.longestSpan() << std::endl; 
     }
     catch (std::exception &e)
     {

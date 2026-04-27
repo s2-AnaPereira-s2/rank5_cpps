@@ -6,7 +6,7 @@
 /*   By: ana <ana@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 18:17:51 by ana-pdos          #+#    #+#             */
-/*   Updated: 2026/04/27 22:19:53 by ana              ###   ########.fr       */
+/*   Updated: 2026/04/27 23:02:46 by ana              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <algorithm>
 #include <cmath>
 #include <climits>
+#include <vector>
 
 class Span
 {
@@ -36,6 +37,13 @@ class Span
         void addNumber(int number);
         int shortestSpan();
         int longestSpan();
+
+        template<typename Iterator>
+        void addRange(Iterator begin, Iterator end)
+        {
+            for (Iterator it = begin; it != end; ++it)
+                addNumber(*it);
+        }
 };
 
 #endif
