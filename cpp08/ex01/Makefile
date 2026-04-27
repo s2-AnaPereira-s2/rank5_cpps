@@ -5,8 +5,10 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -MMD -MP
 INCLUDES = -I include
 
 OBJ_DIR = obj
+SRC_DIR = src
 
 SRCS = main.cpp \
+	$(SRC_DIR)/Span.cpp
 
 OBJS = $(SRCS:%.cpp=$(OBJ_DIR)/%.o)
 DEPS = $(OBJS:.o=.d)

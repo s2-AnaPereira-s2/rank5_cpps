@@ -1,35 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   easyfind.hpp                                       :+:      :+:    :+:   */
+/*   Span.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 18:17:51 by ana-pdos          #+#    #+#             */
-/*   Updated: 2026/04/27 17:06:08 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2026/04/27 17:52:39 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EASYFIND_HPP
-#define EASYFIND_HPP
+#ifndef SPAN_HPP
+#define SPAN_HPP
 
 #include <iostream>
 #include <cstddef>
 #include <cstdlib>
 
-template <typename T>
-void easyFind(T& container, int value)
+class Span
 {
-    for (typename T::iterator it = container.begin(); it != container.end(); ++it) {
-        if (*it == value)
-        {
-            std::cout << "Value found" << std::endl;
-            return;
-        }
-    }
-    throw std::out_of_range("Value not found in the container");
-}
+    private:
+        int *int_array;
+        unsigned int _size;
+        
+    public:
+        Span(unsigned int _size);
+        Span(const Span& other);
+        Span& operator=(const Span& other);
+        ~Span();
 
-
+        void addNumber(int number);
+        int shortestSpan();
+        int longestSpan();
+};
 
 #endif
