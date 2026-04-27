@@ -6,7 +6,7 @@
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 18:17:51 by ana-pdos          #+#    #+#             */
-/*   Updated: 2026/04/27 10:58:04 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2026/04/27 11:13:28 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include <iostream>
 #include <cstddef>
+#include <cstdlib>
 
 template <typename T>
 class Array {
