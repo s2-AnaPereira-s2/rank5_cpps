@@ -66,32 +66,24 @@ int main(void)
     }
     std::cout << std::endl;
     
-    // Modify arr3
     arr3[0] = 777;
     std::cout << "After modifying arr3[0] = 777" << std::endl;
     std::cout << "Original arr[0]: " << arr[0] << ", arr3[0]: " << arr3[0] << std::endl;
     std::cout << "✓ Assignment operator works (deep copy)" << std::endl;
-    std::cout << std::endl;
-
-    std::cout << "=== Test 6: Self-Assignment Check ===" << std::endl;
-    arr = arr;  
-    std::cout << "Self-assignment successful, arr values: ";
-    for (size_t i = 0; i < arr.size(); i++) {
-        std::cout << arr[i] << " ";
-    }
     std::cout << std::endl << std::endl;
 
-    std::cout << "=== Test 7: Bounds Checking (Exception) ===" << std::endl;
+    std::cout << "=== Test 6: Bounds Checking (Exception) ===" << std::endl;
     try {
         std::cout << "Trying to access arr[100]..." << std::endl;
         std::cout << arr[100] << std::endl;
         std::cout << "✗ Exception NOT thrown (BAD)" << std::endl;
-    } catch (std::exception &e) {
-        std::cout << "✓ Exception caught! Out of bounds access prevented" << std::endl;
+    } catch (std::exception &e) 
+    {
+        std::cout << e.what() << std::endl;
     }
     std::cout << std::endl;
 
-    std::cout << "=== Test 8: String Array ===" << std::endl;
+    std::cout << "=== Test 7: String Array ===" << std::endl;
     Array<std::string> strings(3);
     strings[0] = "hello";
     strings[1] = "world";

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   array.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana <ana@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 18:17:51 by ana-pdos          #+#    #+#             */
-/*   Updated: 2026/04/27 01:35:22 by ana              ###   ########.fr       */
+/*   Updated: 2026/04/27 10:58:04 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ class Array {
         {
             if (index >= _size) 
             {
-                throw std::exception();
+                throw std::out_of_range("Exception: Out of bounds access try");
             }
             return data[index];
         }
