@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Span.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ana <ana@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 18:17:51 by ana-pdos          #+#    #+#             */
-/*   Updated: 2026/04/27 17:52:39 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2026/04/27 22:19:53 by ana              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,16 @@
 #include <iostream>
 #include <cstddef>
 #include <cstdlib>
+#include <algorithm>
+#include <cmath>
+#include <climits>
 
 class Span
 {
     private:
         int *int_array;
         unsigned int _size;
+        unsigned int count;
         
     public:
         Span(unsigned int _size);
