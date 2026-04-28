@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Span.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana <ana@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 18:17:51 by ana-pdos          #+#    #+#             */
-/*   Updated: 2026/04/27 23:02:46 by ana              ###   ########.fr       */
+/*   Updated: 2026/04/28 12:45:05 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,8 @@
 class Span
 {
     private:
-        int *int_array;
+        std::vector<int> vec;
         unsigned int _size;
-        unsigned int count;
         
     public:
         Span(unsigned int _size);
@@ -41,8 +40,10 @@ class Span
         template<typename Iterator>
         void addRange(Iterator begin, Iterator end)
         {
-            for (Iterator it = begin; it != end; ++it)
-                addNumber(*it);
+            size_t range_size = std::distance(begin, end);
+            if (vec.size() + range_size > _size)
+                throw std::out_of_range("Range bigger than storage available");
+            vec.insert(vec.end(), begin, end);
         }
 };
 
