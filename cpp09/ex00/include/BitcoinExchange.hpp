@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana <ana@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 16:07:47 by ana-pdos          #+#    #+#             */
-/*   Updated: 2026/04/28 22:59:00 by ana              ###   ########.fr       */
+/*   Updated: 2026/04/29 16:12:24 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,37 +15,23 @@
 
 #include <iostream>
 #include <string>
+#include <fstream>
+#include <map>
 
 class BitcoinExchange
 {
     private:
-        std::string const name; 
-        int bGrade;
-   
+        std::map<std::string, double> prices;
+        void addPrices(const std::string& date, double price);
+        
     public:
+        BitcoinExchange();
+        BitcoinExchange(const BitcoinExchange& other);
+        BitcoinExchange& operator=(const BitcoinExchange& other);
+        ~BitcoinExchange();
         
-        class GradeTooHighException : public std::exception
-        {
-            public:
-                const char* what() const throw();
-        };
-        class GradeTooLowException : public std::exception
-        {
-            public:
-                const char* what() const throw();
-        };
-        
-        Bureaucrat(std::string name, int bGrade);
-        Bureaucrat(const Bureaucrat& other);
-        Bureaucrat& operator=(const Bureaucrat& other);
-        ~Bureaucrat();
-
-        void incrementGrade();
-        void decrementGrade();
-        std::string getName() const;
-        int getGrade() const;
+        void create_db(std::string filename);
+        void displayPrices() const;
 };
-
-std::ostream& operator<<(std::ostream& os, const Bureaucrat& bureaucrat);
 
 #endif

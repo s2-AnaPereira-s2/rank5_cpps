@@ -1,75 +1,68 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Identify.cpp                                       :+:      :+:    :+:   */
+/*   BitcoinExchange.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana <ana@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 00:00:00 by ana               #+#    #+#             */
-/*   Updated: 2026/04/24 01:07:34 by ana              ###   ########.fr       */
+/*   Updated: 2026/04/29 16:10:24 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Base.hpp"
-#include "A.hpp"
-#include "B.hpp"
-#include "C.hpp"
-#include <exception>
+#include "BitcoinExchange.hpp"
+#include <cstdlib>
+#include <fstream>
 
-Base::~Base() {}
 
-Base* generate(void)
+BitcoinExchange::BitcoinExchange() : prices() {}
+        
+BitcoinExchange::BitcoinExchange(const BitcoinExchange &other) : prices(other.prices) {}
+
+BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange &other) 
 {
-    int random = rand() % 3;
-    
-    if (random == 0)
-        return (new A());
-    else if (random == 1)
-        return (new B());
-    else
-        return (new C());
-}
-
-void identify(Base* p)
-{
-    if (dynamic_cast<A*>(p))
-        std::cout << "A" << std::endl;
-    else if (dynamic_cast<B*>(p))
-        std::cout << "B" << std::endl;
-    else if (dynamic_cast<C*>(p))
-        std::cout << "C" << std::endl;
-    else
-        std::cout << "Not A, B or C" << std::endl;
-}
-
-void identify(Base& p)
-{
-    try
+    if (this != &other) 
     {
-        A& a = dynamic_cast<A&>(p);
-        (void)a;
-        std::cout << "A" << std::endl;
+        prices = other.prices;
     }
-    catch (std::exception&)
+    return *this;
+}
+
+BitcoinExchange::~BitcoinExchange() {}
+
+void BitcoinExchange::addPrices(const std::string& date, double price)
+{
+    std::string nd = date + " | ";
+    prices.insert(std::make_pair(nd, price));
+}
+
+void BitcoinExchange::create_db(std::string filename)
+{
+    std::ifstream file(filename.c_str());
+    
+    if (!file.is_open()) {
+        std::cerr << "Error: Cannot open " << filename << "\n";
+        return;
+    }
+    
+    std::string line;
+    while (std::getline(file, line))
     {
-        try
-        {
-            B& b = dynamic_cast<B&>(p);
-            (void)b;
-            std::cout << "B" << std::endl;
-        }
-        catch (std::exception&)
-        {
-            try
-            {
-                C& c = dynamic_cast<C&>(p);
-                (void)c;
-                std::cout << "C" << std::endl;
-            }
-            catch (std::exception&)
-            {
-                std::cout << "Not A, B or C" << std::endl;
-            }
-        }
+        size_t pos = line.find(',');
+        if (pos == std::string::npos)
+            continue;
+        std::string date = line.substr(0, pos);
+        double price = std::atof(line.substr(pos + 1).c_str());
+    
+        addPrices(date, price);
+    }
+    file.close();
+}
+
+void BitcoinExchange::displayPrices() const
+{
+    typedef std::map<std::string, double>::const_iterator MapIterator;
+    for (MapIterator it = prices.begin(); it != prices.end(); ++it) {
+        std::cout << it->first << it->second << "\n";
     }
 }
