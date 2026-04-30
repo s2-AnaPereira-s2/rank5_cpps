@@ -1,21 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   RPN.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/27 16:20:44 by ana-pdos          #+#    #+#             */
-/*   Updated: 2026/04/30 17:25:08 by ana-pdos         ###   ########.fr       */
+/*   Created: 2026/04/15 16:07:47 by ana-pdos          #+#    #+#             */
+/*   Updated: 2026/04/30 17:54:15 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "RPN.hpp"
+#ifndef RPN_HPP
+#define RPN_HPP
 
-int main(int argc, char **argv) 
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <cstdlib>
+#include <climits>
+#include <stack>
+
+class RPN
 {
-    if (argc != 2)
-        return (std::cerr << "Invalid number of argument" << std::endl, 1);
-    RPN_calc(argv[1]);
-    return 0;
-}
+    private:
+        std::stack<int> numbers;
+        
+    public:
+        RPN();
+        RPN(const RPN& other);
+        RPN& operator=(const RPN& other);
+        ~RPN();
+
+        void RPN_calc(std::string expression);
+
+        
+};
+
+#endif
