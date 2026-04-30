@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ana <ana@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 00:00:00 by ana               #+#    #+#             */
-/*   Updated: 2026/04/29 16:10:24 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2026/04/29 21:11:07 by ana              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
-#include <cstdlib>
-#include <fstream>
 
 
 BitcoinExchange::BitcoinExchange() : prices() {}
@@ -36,8 +34,9 @@ void BitcoinExchange::addPrices(const std::string& date, double price)
     prices.insert(std::make_pair(nd, price));
 }
 
-void BitcoinExchange::create_db(std::string filename)
+void BitcoinExchange::create_db()
 {
+    std::string filename = "data.csv";
     std::ifstream file(filename.c_str());
     
     if (!file.is_open()) {
@@ -54,7 +53,7 @@ void BitcoinExchange::create_db(std::string filename)
         std::string date = line.substr(0, pos);
         double price = std::atof(line.substr(pos + 1).c_str());
     
-        addPrices(date, price);
+        this->addPrices(date, price);
     }
     file.close();
 }
