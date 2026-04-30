@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana <ana@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 16:07:47 by ana-pdos          #+#    #+#             */
-/*   Updated: 2026/04/29 21:13:24 by ana              ###   ########.fr       */
+/*   Updated: 2026/04/30 15:08:09 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <string>
 #include <fstream>
 #include <cstdlib>
+#include <climits>
 #include <map>
 
 class BitcoinExchange
@@ -32,7 +33,7 @@ class BitcoinExchange
         ~BitcoinExchange();
 
         void create_db();
-        void displayPrices() const;
+        void input_parse(const std::string input);
 };
 
 #endif
