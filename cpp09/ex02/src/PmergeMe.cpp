@@ -6,7 +6,7 @@
 /*   By: ana <ana@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 00:00:00 by ana               #+#    #+#             */
-/*   Updated: 2026/05/02 16:55:30 by ana              ###   ########.fr       */
+/*   Updated: 2026/05/02 21:47:33 by ana              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ std::vector<int> getJacobsthalOrderVec(int size)
     if (size <= 1)
         return std::vector<int>();
     
-    // Generate Jacobsthal sequence
     std::vector<int> jacob;
     jacob.push_back(0);
     jacob.push_back(1);
@@ -87,19 +86,33 @@ std::vector<int> getJacobsthalOrderVec(int size)
         jacob.push_back(next);
     }
     
-    // Create insertion order: [1, 3, 2, 5, 4, 6, ...]
     std::vector<int> order;
-    order.push_back(1);  // Always insert element 1 first
+    order.push_back(1);
     
     for (size_t i = 2; i < jacob.size(); i++)
     {
         int high = jacob[i];
         int low = jacob[i - 1];
         
-        for (int j = high; j > low && j <= size; j--)
+        for (int j = std::min(high, size); j > low; j--)
         {
             order.push_back(j);
         }
+    }
+    
+    for (int i = 1; i <= size; i++)
+    {
+        bool found = false;
+        for (size_t j = 0; j < order.size(); j++)
+        {
+            if (order[j] == i)
+            {
+                found = true;
+                break;
+            }
+        }
+        if (!found)
+            order.push_back(i);
     }
     
     return order;
@@ -128,10 +141,25 @@ std::deque<int> getJacobsthalOrderDeque(int size)
         int high = jacob[i];
         int low = jacob[i - 1];
         
-        for (int j = high; j > low && j <= size; j--)
+        for (int j = std::min(high, size); j > low; j--)
         {
             order.push_back(j);
         }
+    }
+    
+    for (int i = 1; i <= size; i++)
+    {
+        bool found = false;
+        for (size_t j = 0; j < order.size(); j++)
+        {
+            if (order[j] == i)
+            {
+                found = true;
+                break;
+            }
+        }
+        if (!found)
+            order.push_back(i);
     }
     
     return order;
@@ -171,7 +199,7 @@ void PmergeMe::vec_bNlNsN(std::vector<int>& v)
     std::vector<int> order = getJacobsthalOrderVec(vec_lN.size());
     for (size_t i = 0; i < order.size(); i++)
     {
-        int idx = order[i] - 1;  // Convert to 0-based
+        int idx = order[i] - 1;
         int bi = get_pair(pairs, vec_bN, vec_lN[idx]);
         
         if (bi < 0)
@@ -228,9 +256,6 @@ void PmergeMe::dq_bNlNsN(std::deque<int>& d)
     
     std::deque<int> order = getJacobsthalOrderDeque(deq_lN.size());
     for (size_t i = 0; i < order.size(); i++)
-        order.push_back(order[i]);
-    
-    for (size_t i = 0; i < order.size(); i++)
     {
         int idx = order[i] - 1;
         int bi = get_pair_d(pairs, deq_bN, deq_lN[idx]);
@@ -267,11 +292,11 @@ void PmergeMe::funcSort()
         std::cout << vec_sorted[i] << " ";
     std::cout << std::endl;
     std::cout << "Deque Before: " << std::endl;
-    for(size_t i = 0; i < vec.size(); i++)
-        std::cout << vec[i] << " ";
+    for(size_t i = 0; i < dq.size(); i++)
+        std::cout << dq[i] << " ";
     std::cout << "\nDeque After: " << std::endl;
-    for(size_t i = 0; i < vec_sorted.size(); i++)
-        std::cout << vec_sorted[i] << " ";
+    for(size_t i = 0; i < dq_sorted.size(); i++)
+        std::cout << dq_sorted[i] << " ";
     std::cout << std::endl;
 }
 
