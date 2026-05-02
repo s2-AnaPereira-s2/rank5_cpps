@@ -8,7 +8,7 @@ SRC_DIR = src
 OBJ_DIR = obj
 
 SRCS = main.cpp \
-	$(SRC_DIR)/Identify.cpp 
+	$(SRC_DIR)/PmergeMe.cpp 
 
 OBJS = $(SRCS:%.cpp=$(OBJ_DIR)/%.o)
 
