@@ -6,7 +6,7 @@
 /*   By: ana <ana@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/15 16:07:47 by ana-pdos          #+#    #+#             */
-/*   Updated: 2026/05/02 16:44:13 by ana              ###   ########.fr       */
+/*   Updated: 2026/05/08 01:40:38 by ana              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@
 #include <fstream>
 #include <cstdlib>
 #include <climits>
+#include <algorithm>
 #include <vector>
 #include <deque>
+#include <sys/time.h>
 
 class PmergeMe
 {
@@ -36,8 +38,8 @@ class PmergeMe
         ~PmergeMe();
 
         void add_number(std::string number);
-        void vec_bNlNsN(std::vector<int>& v);
-        void dq_bNlNsN(std::deque<int>& d);
+        int vec_sort(std::vector<int>& v);
+        int dq_sort(std::deque<int>& d);
         void funcSort();
 };
 

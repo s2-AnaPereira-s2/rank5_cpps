@@ -6,7 +6,7 @@
 /*   By: ana <ana@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 00:00:00 by ana               #+#    #+#             */
-/*   Updated: 2026/05/02 21:47:33 by ana              ###   ########.fr       */
+/*   Updated: 2026/05/08 01:52:53 by ana              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void PmergeMe::add_number(std::string number)
     vec.push_back(num);
     dq.push_back(num);
 }
-
+/*
 int get_pair(std::vector<std::pair<int, int> > pairs, std::vector<int> vec_bN, int lN)
 {
     for (size_t i = 0; i < pairs.size(); i++)
@@ -69,7 +69,7 @@ int get_pair_d(std::deque<std::pair<int, int> > pairs, std::deque<int> deq_bN, i
         }
     }
     return -1;
-}
+}*/
 
 std::vector<int> getJacobsthalOrderVec(int size)
 {
@@ -165,14 +165,14 @@ std::deque<int> getJacobsthalOrderDeque(int size)
     return order;
 }
 
-void PmergeMe::vec_bNlNsN(std::vector<int>& v)
+int PmergeMe::vec_sort(std::vector<int>& v)
 {
     std::vector<int> vec_bN;
     std::vector<int> vec_lN;
     std::vector<std::pair<int, int> > pairs;
 
     if (v.size() < 2)
-        return;
+        return 0;
     for (size_t i = 0; i < v.size(); i += 2)
     {
         if (i == v.size() - 1)
@@ -195,39 +195,37 @@ void PmergeMe::vec_bNlNsN(std::vector<int>& v)
         }
     }
     if (vec_bN.size() > 1)
-        vec_bNlNsN(vec_bN);
+        vec_sort(vec_bN);
     std::vector<int> order = getJacobsthalOrderVec(vec_lN.size());
     for (size_t i = 0; i < order.size(); i++)
     {
-        int idx = order[i] - 1;
-        int bi = get_pair(pairs, vec_bN, vec_lN[idx]);
-        
-        if (bi < 0)
-        {
-            size_t pos = 0;
-            while (pos < vec_bN.size() && vec_bN[pos] < vec_lN[idx])
-                pos++;
-            vec_bN.insert(vec_bN.begin() + pos, vec_lN[idx]);
-        }
-        else
-        {
-            size_t pos = bi;
-            while (pos > 0 && vec_bN[pos - 1] > vec_lN[idx])
-                pos--;
-            vec_bN.insert(vec_bN.begin() + pos, vec_lN[idx]);
-        }
+        size_t idx = order[i] - 1;
+
+        if (idx >= vec_lN.size())
+             continue;
+		int small = vec_lN[idx];
+		if (idx < pairs.size()) {
+			int big = pairs[idx].second;
+			std::vector<int>::iterator bound = std::find(vec_bN.begin(), vec_bN.end(), big);
+			std::vector<int>::iterator pos = std::lower_bound(vec_bN.begin(), bound, small);
+			vec_bN.insert(pos, small);
+		} else { // Check if unpaired (odd element)
+			std::vector<int>::iterator pos = std::lower_bound(vec_bN.begin(), vec_bN.end(), small);
+			vec_bN.insert(pos, small);
+		}
     }
-    v = vec_bN;   
+    v = vec_bN;
+    return 0;   
 }
 
-void PmergeMe::dq_bNlNsN(std::deque<int>& d)
+int PmergeMe::dq_sort(std::deque<int>& d)
 {
     std::deque<int> deq_bN;
     std::deque<int> deq_lN;
     std::deque<std::pair<int, int> > pairs;
 
     if (d.size() < 2)
-        return;
+        return 0;
     
     for (size_t i = 0; i < d.size(); i += 2)
     {
@@ -252,52 +250,63 @@ void PmergeMe::dq_bNlNsN(std::deque<int>& d)
     }
     
     if (deq_bN.size() > 1)
-        dq_bNlNsN(deq_bN);
+        dq_sort(deq_bN);
     
     std::deque<int> order = getJacobsthalOrderDeque(deq_lN.size());
     for (size_t i = 0; i < order.size(); i++)
     {
-        int idx = order[i] - 1;
-        int bi = get_pair_d(pairs, deq_bN, deq_lN[idx]);
-        
-        if (bi < 0)
+        size_t idx = order[i] - 1;
+ 
+        if (idx >= deq_lN.size())
+             continue;
+		int small = deq_lN[idx];
+		if (idx < pairs.size()) 
         {
-            size_t pos = 0;
-            while (pos < deq_bN.size() && deq_bN[pos] < deq_lN[idx])
-                pos++;
-            deq_bN.insert(deq_bN.begin() + pos, deq_lN[idx]);
-        }
-        else
-        {
-            size_t pos = bi;
-            while (pos > 0 && deq_bN[pos - 1] > deq_lN[idx])
-                pos--;
-            deq_bN.insert(deq_bN.begin() + pos, deq_lN[idx]);
-        }
+			int bi = pairs[idx].second;
+			std::deque<int>::iterator bound = std::find(deq_bN.begin(), deq_bN.end(), bi);
+			std::deque<int>::iterator pos = std::lower_bound(deq_bN.begin(), bound, small);
+			deq_bN.insert(pos, small);
+		}  else { // Check if unpaired (odd element)
+			std::deque<int>::iterator pos = std::lower_bound(deq_bN.begin(), deq_bN.end(), small);
+			deq_bN.insert(pos, small);
+		}
     }
     d = deq_bN;
+    return 0;
 }
 
 void PmergeMe::funcSort()
 {
     vec_sorted = vec;
     dq_sorted = dq;
-    vec_bNlNsN(vec_sorted);
-    dq_bNlNsN(dq_sorted);
+
+    struct timeval start, end;
+    gettimeofday(&start, NULL);
+	int resultVec = vec_sort(vec_sorted);
+    gettimeofday(&end, NULL);
+    long vecTime = (end.tv_sec - start.tv_sec) * 1000000 + (end.tv_usec - start.tv_usec);
+    gettimeofday(&start, NULL);
+	int resultDeq = dq_sort(dq_sorted);
+	gettimeofday(&end, NULL);
+	long deqTime = (end.tv_sec - start.tv_sec) *1000000 + (end.tv_usec - start.tv_usec);
+    
+    
     std::cout << "Vector Before: " << std::endl;
-    for(size_t i = 0; i < vec.size(); i++)
+    for(size_t i = resultVec; i < vec.size(); i++)
         std::cout << vec[i] << " ";
     std::cout << "\nVector After: " << std::endl;
     for(size_t i = 0; i < vec_sorted.size(); i++)
         std::cout << vec_sorted[i] << " ";
     std::cout << std::endl;
     std::cout << "Deque Before: " << std::endl;
-    for(size_t i = 0; i < dq.size(); i++)
+    for(size_t i = resultDeq; i < dq.size(); i++)
         std::cout << dq[i] << " ";
     std::cout << "\nDeque After: " << std::endl;
     for(size_t i = 0; i < dq_sorted.size(); i++)
         std::cout << dq_sorted[i] << " ";
-    std::cout << std::endl;
+
+    std::cout << "\nTime to process a range of " << vec.size() << " elements with std::vector : " << vecTime << " us";
+	std::cout << "\nTime to process a range of " << dq.size() << " elements with std::deque : " << deqTime << " us" << std::endl;
 }
 
 
