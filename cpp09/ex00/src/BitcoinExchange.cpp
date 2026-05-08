@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ana <ana@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 00:00:00 by ana               #+#    #+#             */
-/*   Updated: 2026/04/30 16:28:25 by ana-pdos         ###   ########.fr       */
+/*   Updated: 2026/05/08 03:15:19 by ana              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,18 +74,24 @@ static int date_check(std::string date)
         return 0;
     if ((month == 2 || month == 4 || month == 6 || month == 9 || month == 11) && (day < 01 || day > 30))
         return 0;
-    if ( day < 01 || day > 31)
+    if (month < 1 || month > 12 || day < 1 || day > 31)
         return 0;
     return 1;
 }
 
-static int value_check(double value)
+static double value_check(std::string valuestr)
 {
+    double value = std::atof(valuestr.c_str()); 
     if (value < 0)
         return (std::cerr << "Error: not a positive number" << std::endl, 0);
     if (value > 1000)
         return (std::cerr << "Error: value too large" << std::endl, 0);
-    return 1;
+    for (size_t i = 0; i < valuestr.size(); i++)
+    {
+        if (!isdigit(valuestr[i]) && valuestr[i] != '.')
+            return (std::cerr << "Error: bad input => " << valuestr << std::endl, 0);
+    }
+    return value;
 }
 
 static double get_closest_price(const std::map<std::string, double>& prices, std::string date)
@@ -133,13 +139,14 @@ void BitcoinExchange::input_parse(const std::string input)
     {
         size_t pos = line.find('|');
         std::string date = line.substr(0, pos - 1);
-        double value = std::atof(line.substr(pos + 2).c_str());
+        std::string valuestr = line.substr(pos + 2);
         if (!date_check(date))
         {
-            std::cerr << "Error: bad input => " << date << std::endl;
+            std::cerr << "Error: bad input => " << line << std::endl;
             continue;
         }
-        if (!value_check(value))
+        double value = value_check(valuestr);
+        if (!value)
             continue;
         findnshow(prices, date, value);
     }
