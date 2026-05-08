@@ -6,7 +6,7 @@
 /*   By: ana <ana@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 00:00:00 by ana               #+#    #+#             */
-/*   Updated: 2026/04/30 23:03:34 by ana              ###   ########.fr       */
+/*   Updated: 2026/05/08 03:52:48 by ana              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,6 @@ void RPN::RPN_calc(std::string expression)
 {
     for (int i = 0; expression[i]; i++)
     {
-        if (!isdigit(expression[i]))
-        {
-            std::cerr << "Error: invalid expression" << std::endl;
-            return;
-        }
         if (isspace(expression[i]))
         {
             continue;
@@ -62,12 +57,22 @@ void RPN::RPN_calc(std::string expression)
                     numbers.push(n2 * n1);
                     break;
                 case '/':
+                    if (n1 == 0)
+                    {
+                        std::cerr << "Error: cannot divide by 0" << std::endl;
+                        return;
+                    }
                     numbers.push(n2 / n1);
                     break;
             }
             
         }
-        else if (expression[i] != '+' || expression[i] != '-' || expression[i] != '/' || expression[i] != '*')
+        else if (!isdigit(expression[i]))
+        {
+            std::cerr << "Error: invalid expression" << std::endl;
+            return;
+        }
+        else if (expression[i] != '+' ||expression[i] != '-' || expression[i] != '/' || expression[i] != '*')
         {
             std::cerr << "Error: invalid expression" << std::endl;
             return;
