@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RPN.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana <ana@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 00:00:00 by ana               #+#    #+#             */
-/*   Updated: 2026/05/08 03:52:48 by ana              ###   ########.fr       */
+/*   Updated: 2026/05/08 11:38:00 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,11 @@ void RPN::RPN_calc(std::string expression)
         }
         else if (expression[i] == '+' || expression[i] == '-' || expression[i] == '/' || expression[i] == '*')
         {
+            if (numbers.size() <= 1)
+            {
+                std::cerr << "Error: Invalid expression" << std::endl;
+                return;
+            }
             int n1 = numbers.top();
             numbers.pop();
             int n2 = numbers.top();
