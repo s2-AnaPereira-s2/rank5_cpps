@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ana <ana@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: ana-pdos <ana-pdos@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/24 00:00:00 by ana               #+#    #+#             */
-/*   Updated: 2026/05/08 01:52:53 by ana              ###   ########.fr       */
+/*   Updated: 2026/05/11 10:30:19 by ana-pdos         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,45 +36,14 @@ void PmergeMe::add_number(std::string number)
     vec.push_back(num);
     dq.push_back(num);
 }
-/*
-int get_pair(std::vector<std::pair<int, int> > pairs, std::vector<int> vec_bN, int lN)
-{
-    for (size_t i = 0; i < pairs.size(); i++)
-    {
-        if (lN == pairs[i].first)
-        {
-            size_t bi = 0;
-            for (; bi < vec_bN.size(); bi++)
-            {
-                if (pairs[i].second == vec_bN[bi])
-                    return bi;
-            }
-        }
-    }
-    return -1;
-}
-
-int get_pair_d(std::deque<std::pair<int, int> > pairs, std::deque<int> deq_bN, int lN)
-{
-    for (size_t i = 0; i < pairs.size(); i++)
-    {
-        if (lN == pairs[i].first)
-        {
-            size_t bi = 0;
-            for (; bi < deq_bN.size(); bi++)
-            {
-                if (pairs[i].second == deq_bN[bi])
-                    return bi;
-            }
-        }
-    }
-    return -1;
-}*/
 
 std::vector<int> getJacobsthalOrderVec(int size)
 {
+    std::vector<int> order;
+    order.push_back(1);
+    
     if (size <= 1)
-        return std::vector<int>();
+        return (order);
     
     std::vector<int> jacob;
     jacob.push_back(0);
@@ -85,9 +54,6 @@ std::vector<int> getJacobsthalOrderVec(int size)
         int next = jacob[jacob.size() - 1] + 2 * jacob[jacob.size() - 2];
         jacob.push_back(next);
     }
-    
-    std::vector<int> order;
-    order.push_back(1);
     
     for (size_t i = 2; i < jacob.size(); i++)
     {
@@ -120,8 +86,11 @@ std::vector<int> getJacobsthalOrderVec(int size)
 
 std::deque<int> getJacobsthalOrderDeque(int size)
 {
+    std::deque<int> order;
+    order.push_back(1);
+    
     if (size <= 1)
-        return std::deque<int>();
+        return (order);
     
     std::deque<int> jacob;
     jacob.push_back(0);
@@ -132,9 +101,6 @@ std::deque<int> getJacobsthalOrderDeque(int size)
         int next = jacob[jacob.size() - 1] + 2 * jacob[jacob.size() - 2];
         jacob.push_back(next);
     }
-    
-    std::deque<int> order;
-    order.push_back(1);
     
     for (size_t i = 2; i < jacob.size(); i++)
     {
